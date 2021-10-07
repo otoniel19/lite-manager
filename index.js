@@ -18,10 +18,14 @@ class lite {
     const args = _.keys(columms);
     var values = [];
     var types = [];
-    var modelo = { id: Number };
+    var modelo = {
+      id: Number
+    };
     for (let i = 0; i < args.length; i++) {
       values.push(`${args[i]} ${columms[args[i]]["type"]}`);
-      types.push({ [args[i]]: columms[args[i]]["model"] });
+      types.push({
+        [args[i]]: columms[args[i]]["model"]
+      });
     }
     if (values.length > 0 && types.length > 0) {
       for (let i = 0; i < types.length; i++) {
@@ -34,25 +38,27 @@ class lite {
     return {
       getAll: () => {
         return new Promise((resolve, reject) => {
-          resolve(this.all.query(`SELECT * FROM ${name}`, modelo));
+          this.all.query(`SELECT * FROM ${name}`, modelo, data => {
+            resolve(data)
+          });
         });
       },
       getById: (value) => {
         return new Promise((resolve, reject) => {
-          resolve(
-            this.all.query(`SELECT * FROM ${name} WHERE id = ${value}`, modelo)
-          );
+          this.all.query(`SELECT * FROM ${name} WHERE id = ${value}`, modelo, data => {
+            resolve(data)
+          })
         });
       },
       getOne: (where) => {
         return new Promise((resolve, reject) => {
           let keys = _.keys(where);
-          resolve(
-            this.all.query(
-              `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
-              modelo
-            )
-          );
+          this.all.query(
+            `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
+            modelo, data => {
+              resolve(data)
+            }
+          )
         });
       },
       create: (columms) => {
@@ -71,7 +77,7 @@ class lite {
         for (let i = 0; i < keys.length; i++) {
           this.all.query(
             `UPDATE ${name} SET ${keys[i]} = "${columms[keys[i]]}" WHERE ${
-              whereK[0]
+            whereK[0]
             } = ${where[whereK[0]]}`
           );
         }
@@ -131,6 +137,6 @@ tabela.delete({id: 2})
 */
 
 module.exports = {
-    lite: lite//,
-    //run: require("./lib/run")
+  lite: lite//,
+  //run: require("./lib/run")
 }
