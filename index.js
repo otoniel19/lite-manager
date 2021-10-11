@@ -1,6 +1,15 @@
 const _ = require("lodash");
 const dblite = require("dblite");
 const fs = require("fs-extra");
+const shell = require('shelljs')
+
+if(!shell.which("sqlite3")) {
+   console.log("sqlite3 is necessary for the program to work.")
+   console.log("installing sqlite3...");
+   shell.exec("pkg install sqlite -y")
+   console.log("sqlite3 installed");
+   shell.exit()
+}
 
 class lite {
   constructor(dir) {
