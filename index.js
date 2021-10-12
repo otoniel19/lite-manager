@@ -145,7 +145,4 @@ tabela.update({nome: "Daniel",},{id: 2})
 tabela.delete({id: 2})
 */
 
-module.exports = {
-  lite: lite//,
-  //run: require("./lib/run")
-}
+module.exports = lite
