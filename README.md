@@ -31,7 +31,7 @@ const table = sql.connect("tname", {
      model: String,
    },
  });
- table.findAll().then(data => {
+ table.getAll().then(data => {
    console.log(data)
  })
 ```
