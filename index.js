@@ -3,6 +3,7 @@ const dblite = require("dblite");
 const fs = require("fs-extra");
 const shell = require('shelljs')
 
+//check if sqlite3 shell is installed
 if(!shell.which("sqlite3")) {
    console.log("sqlite3 is necessary for the program to work.")
    console.log("installing sqlite3...");
