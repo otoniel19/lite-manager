@@ -1,7 +1,8 @@
 # lite-manager sqlite database manager
 # create a table 
 ```
-const sql = new lite("./tmp.db");
+const lite = require("lite-manager")
+const sql = new lite.lite("./tmp.db").lite("./tmp.db");
 const table = sql.connect("tname", {
   name: {
     type: "TEXT",
@@ -11,7 +12,8 @@ const table = sql.connect("tname", {
 ````
 # insert into a table
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -24,7 +26,8 @@ const table = sql.connect("tname", {
 ```
 # get all values
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -37,7 +40,8 @@ const table = sql.connect("tname", {
 ```
 # get values by id
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -50,7 +54,8 @@ const table = sql.connect("tname", {
 ```
 # get one value
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -63,7 +68,8 @@ const table = sql.connect("tname", {
 ```
 # update value
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -76,7 +82,8 @@ const table = sql.connect("tname", {
 ```
 # delete value
 ```
- const sql = new lite("./tmp.db");
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
      type: "TEXT",
@@ -85,4 +92,22 @@ const table = sql.connect("tname", {
  });
  table.delete({id: 1})
 ```
+# aditional
+
+# add a file 
+```
+const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const table = sql.connect("tname", {
+   file: {
+     type: "TEXT",
+     model: String,
+   },
+ });
+ const liteTypes = lite.types
+ table.create({
+   file: liteTypes.fileB64("./example_img.png")
+ })
+```
+
 # bye bye!

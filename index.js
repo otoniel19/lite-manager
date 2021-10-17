@@ -146,4 +146,7 @@ tabela.update({nome: "Daniel",},{id: 2})
 tabela.delete({id: 2})
 */
 
-module.exports = lite
+module.exports = {
+  lite: lite,
+  types: require("./lib/types")
+}
