@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "dblite": "^1.1.4",
-    "file-base64": "^1.0.0",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "shelljs": "^0.8.4"
