@@ -37,8 +37,6 @@ class lite {
       var types = [];
       var modelo = {
         id: Number,
-        createdAt: String,
-        updatedAt: String
       };
       for (let i = 0; i < args.length; i++) {
         values.push(`${args[i]} ${columms[args[i]]["type"]}`);
@@ -52,7 +50,7 @@ class lite {
         }
       }
       this.all.query(
-        `CREATE TABLE IF NOT EXISTS ${name}(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,${values},createdAt TEXT NOT NULL,updatedAt TEXT NOT NULL)`
+        `CREATE TABLE IF NOT EXISTS ${name}(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,${values})`
       );
       return {
         getAll: () => {
@@ -91,14 +89,11 @@ class lite {
             values.push(`"${columms[args[i]]}"`);
           }
           this.all.query(`INSERT INTO ${name}(${into}) VALUES(${values})`);
-          this.all.query(`INSERT INTO ${name}(createdAt,updatedAt) VALUES("${Date.now()}","${Date.now()}")`)
         },
         update: (columms, where) => {
           if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty?  :") }
           let keys = _.keys(columms);
           let whereK = _.keys(where);
-          this.all.query(`UPDATE ${name} SET updatedAt = "${Date.now()}" WHERE ${whereK[0]} = ${where[whereK[0]]}`)
-
           this.all.query(`BEGIN TRANSACTION`);
           for (let i = 0; i < keys.length; i++) {
             this.all.query(
