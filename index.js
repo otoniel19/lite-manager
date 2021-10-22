@@ -90,7 +90,8 @@ class lite {
           for (let i = 0; i < args.length; i++) {
             values.push(`"${columms[args[i]]}"`);
           }
-          this.all.query(`INSERT INTO ${name}(${into},createdAt,updatedAt) VALUES(${values},${Date.now()},${Date.now()})`);
+          this.all.query(`INSERT INTO ${name}(${into}) VALUES(${values})`);
+          this.all.query(`INSERT INTO ${name}(createdAt,updatedAt) VALUES("${Date.now()}","${Date.now()}")`)
         },
         update: (columms, where) => {
           if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty?  :") }
@@ -168,5 +169,6 @@ tabela.delete({id: 2})
 module.exports = {
   lite: lite,
   types: require("./lib/types"),
-  run: require("./lib/run")
+  run: require("./lib/run"),
+  close: require("./lib/close")
 }
