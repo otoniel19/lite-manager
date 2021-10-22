@@ -94,7 +94,7 @@ const table = sql.connect("tname", {
 ```
 # aditional
 
-# add a file 
+# add a base64 str
 ```
 const lite = require("lite-manager")
  const sql = new lite.lite("./tmp.db")("./tmp.db");
@@ -106,8 +106,50 @@ const lite = require("lite-manager")
  });
  const liteTypes = lite.types
  table.create({
-   file: liteTypes.fileB64("./example_img.png")
+   file: liteTypes.base64("./example_img.png")
  })
 ```
+* note you can add anything in base64
+
+# table models
+
+# text
+```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.text(),
+     model: String,
+   },
+ });
+```
+# string 
+```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.string(),
+     model: String,
+   },
+ });
+```
+# integer
+```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.integer(),
+     model: String,
+   },
+ });
+```
+
+
 
 # bye bye!
