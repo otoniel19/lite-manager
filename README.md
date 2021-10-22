@@ -94,6 +94,8 @@ const table = sql.connect("tname", {
 ```
 # aditional
 
+* note you can also use :memory: database
+
 # add a base64 str
 ```
 const lite = require("lite-manager")
