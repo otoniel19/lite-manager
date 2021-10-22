@@ -127,14 +127,14 @@ const lite = require("lite-manager")
    },
  });
 ```
-# string 
+# real
 ```
  const lite = require("lite-manager")
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
-     type: liteTypes.string(),
+     type: liteTypes.real(),
      model: String,
    },
  });
@@ -151,7 +151,18 @@ const lite = require("lite-manager")
    },
  });
 ```
-
+# blob
+```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.blob(),
+     model: String,
+   },
+ });
+```
 # run query
 ```
  const lite = require("lite-manager")
