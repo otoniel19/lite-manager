@@ -152,6 +152,13 @@ const lite = require("lite-manager")
  });
 ```
 
-
+# run query
+```
+ const lite = require("lite-manager")
+ const liteRun = lite.run
+ const Run = new liteRun(":memory:")
+ Run.run(".show")
+```
+* note is still in development
 
 # bye bye!
