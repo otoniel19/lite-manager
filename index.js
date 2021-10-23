@@ -164,6 +164,5 @@ tabela.delete({id: 2})
 module.exports = {
   lite: lite,
   types: require("./lib/types"),
-  run: require("./lib/run"),
-  close: require("./lib/close")
+  run: require("./lib/run")
 }

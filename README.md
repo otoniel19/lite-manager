@@ -172,20 +172,4 @@ const lite = require("lite-manager")
 ```
 * note is still in development
 
-# close connection
-```
- const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
- const liteTypes = lite.types
- const table = sql.connect("tname", {
-    file: {
-      type: liteTypes.text(),
-      model: String,
-    },
-  });
-  
-  lite.close()
-  
-```
-
 # bye bye!
