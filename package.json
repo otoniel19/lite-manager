@@ -1,6 +1,6 @@
 {
   "name": "lite-manager",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "main": "index.js",
   "description": "lite-manager sqlite database manager",
   "scripts": {
@@ -14,7 +14,6 @@
   "author": "otoniel19",
   "license": "ISC",
   "dependencies": {
-    "dblite": "^1.1.4",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "shelljs": "^0.8.4"

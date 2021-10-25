@@ -1,12 +1,17 @@
-# lite-manager sqlite database manager
+# lite-manager sqlite database manager Made only by Otoniel19
+
+[![npm version](https://img.shields.io/npm/v/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
+[![npm downloads](https://img.shields.io/npm/dm/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
+[![npm downloads](https://img.shields.io/npm/dw/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
+
+# Now you no longer need to inform the model because the self model program now!
 # create a table 
 ```
 const lite = require("lite-manager")
 const sql = new lite.lite("./tmp.db").lite("./tmp.db");
 const table = sql.connect("tname", {
   name: {
-    type: "TEXT",
-    model: String,
+    type: "TEXT"
   },
 });
 ````
@@ -16,8 +21,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.create({
@@ -30,8 +34,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.getAll().then(data => {
@@ -44,8 +47,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.getById(1).then(data => {
@@ -58,8 +60,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.getOne({name: "Hello!"}).then(data => {
@@ -72,8 +73,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.update({
@@ -86,8 +86,7 @@ const table = sql.connect("tname", {
  const sql = new lite.lite("./tmp.db")("./tmp.db");
  const table = sql.connect("tname", {
    name: {
-     type: "TEXT",
-     model: String,
+     type: "TEXT"
    },
  });
  table.delete({id: 1})
@@ -103,7 +102,6 @@ const lite = require("lite-manager")
  const table = sql.connect("tname", {
    file: {
      type: "TEXT",
-     model: String,
    },
  });
  const liteTypes = lite.types
@@ -113,7 +111,7 @@ const lite = require("lite-manager")
 ```
 * note you can add anything in base64
 
-# table models
+# table s
 
 # text
 ```
@@ -122,8 +120,7 @@ const lite = require("lite-manager")
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
-     type: liteTypes.text(),
-     model: String,
+     type: liteTypes.text()
    },
  });
 ```
@@ -134,8 +131,7 @@ const lite = require("lite-manager")
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
-     type: liteTypes.real(),
-     model: String,
+     type: liteTypes.real()
    },
  });
 ```
@@ -146,8 +142,7 @@ const lite = require("lite-manager")
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
-     type: liteTypes.integer(),
-     model: String,
+     type: liteTypes.integer()
    },
  });
 ```
@@ -158,8 +153,7 @@ const lite = require("lite-manager")
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
-     type: liteTypes.blob(),
-     model: String,
+     type: liteTypes.blob()
    },
  });
 ```
@@ -171,5 +165,6 @@ const lite = require("lite-manager")
  Run.run(".show")
 ```
 * note is still in development
+* removed by now
 
 # bye bye!
