@@ -13,8 +13,14 @@ if (!shell.which("sqlite3")) {
 }
 
 class lite {
-  constructor(dir) {
+  constructor(dir, opts) {
     try {
+
+      //options
+      if (opts && typeof opts == 'object') {
+        this.opts = opts
+      }
+
       if (dir == ":memory:") {
         this.all = new Query(dir)
       } else {
@@ -32,6 +38,8 @@ class lite {
     try {
       if (name && columms) {} else { throw new Error("table name and columms of table cannot be null ") }
 
+      //create a table
+
       const args = _.keys(columms);
       var values = [];
       for (let i = 0; i < args.length; i++) {
@@ -41,25 +49,45 @@ class lite {
         "table", `CREATE TABLE IF NOT EXISTS ${name}(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,${values})`
       );
       return {
-        getAll: () => {
-          return new Promise((resolve, reject) => {
-            resolve(this.all.run("select", `SELECT * FROM ${name}`))
-          });
+        getAll: (cb) => {
+          if (this.opts.getType == "promisse") {
+            return new Promise((resolve, reject) => {
+              resolve(this.all.run("select", `SELECT * FROM ${name}`))
+            });
+          } else if (this.opts.getType == "value") {
+            return this.all.run("select", `SELECT * FROM ${name}`)
+          } else if (this.opts.getType == "callback") {
+            cb(this.all.run("select", `SELECT * FROM ${name}`))
+          }
         },
-        getById: (value) => {
+        getById: (value, cb) => {
           if (value) {} else { throw new Error("please inform the id") }
-          return new Promise((resolve, reject) => {
-            resolve(this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`))
-          });
+          if (this.opts.getType == "promisse") {
+            return new Promise((resolve, reject) => {
+              resolve(this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`))
+            });
+          } else if (this.opts.getType == "value") {
+            return this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`)
+          } else if (this.opts.getType == "callback") {
+            cb(this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`))
+          }
         },
-        getOne: (where) => {
+        getOne: (where, cb) => {
           if (where) {} else { throw new Error("please inform where you want to get the value") }
-          return new Promise((resolve, reject) => {
+          if (this.opts.getType == "promisse") {
+            return new Promise((resolve, reject) => {
+              let keys = _.keys(where);
+              resolve(this.all.run(
+                "select", `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
+              ))
+            });
+          } else if (this.opts.getType == "value") {
             let keys = _.keys(where);
-            resolve(this.all.run(
-              "select", `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
-            ))
-          });
+            return this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`)
+          } else if (this.opts.getType == "callback") {
+            let keys = _.keys(where);
+            cb(this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`))
+          }
         },
         create: (columms) => {
           if (columms) {} else { throw new Error("columms cannot be null") }
@@ -69,7 +97,7 @@ class lite {
           for (let i = 0; i < args.length; i++) {
             values.push(`"${columms[args[i]]}"`);
           }
-          this.all.run("create",`INSERT INTO ${name}(${into}) VALUES(${values})`);
+          this.all.run("create", `INSERT INTO ${name}(${into}) VALUES(${values})`);
         },
         update: (columms, where) => {
           if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty?  :") }
@@ -77,7 +105,7 @@ class lite {
           let whereK = _.keys(where);
           for (let i = 0; i < keys.length; i++) {
             this.all.run(
-              "update",`UPDATE ${name} SET ${keys[i]} = "${columms[keys[i]]}" WHERE ${
+              "update", `UPDATE ${name} SET ${keys[i]} = "${columms[keys[i]]}" WHERE ${
             whereK[0]
             } = ${where[whereK[0]]}`
             );
@@ -87,7 +115,7 @@ class lite {
           if (where) {} else { throw new Error("please inform where you will delete the value") }
           let finalD = _.keys(where);
           this.all.run(
-            "delete",`DELETE FROM ${name} WHERE ${finalD[0]} = ${where[finalD[0]]}`
+            "delete", `DELETE FROM ${name} WHERE ${finalD[0]} = ${where[finalD[0]]}`
           );
         },
       };

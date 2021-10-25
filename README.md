@@ -8,7 +8,7 @@
 # create a table 
 ```
 const lite = require("lite-manager")
-const sql = new lite.lite("./tmp.db").lite("./tmp.db");
+const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
 const table = sql.connect("tname", {
   name: {
     type: "TEXT"
@@ -18,7 +18,7 @@ const table = sql.connect("tname", {
 # insert into a table
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -31,7 +31,7 @@ const table = sql.connect("tname", {
 # get all values
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -44,7 +44,7 @@ const table = sql.connect("tname", {
 # get values by id
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -57,7 +57,7 @@ const table = sql.connect("tname", {
 # get one value
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -70,7 +70,7 @@ const table = sql.connect("tname", {
 # update value
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -83,7 +83,7 @@ const table = sql.connect("tname", {
 # delete value
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    name: {
      type: "TEXT"
@@ -98,7 +98,7 @@ const table = sql.connect("tname", {
 # add a base64 str
 ```
 const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const table = sql.connect("tname", {
    file: {
      type: "TEXT",
@@ -116,7 +116,7 @@ const lite = require("lite-manager")
 # text
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
@@ -127,7 +127,7 @@ const lite = require("lite-manager")
 # real
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
@@ -138,7 +138,7 @@ const lite = require("lite-manager")
 # integer
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
@@ -149,7 +149,7 @@ const lite = require("lite-manager")
 # blob
 ```
  const lite = require("lite-manager")
- const sql = new lite.lite("./tmp.db")("./tmp.db");
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
  const liteTypes = lite.types
  const table = sql.connect("tname", {
    file: {
@@ -166,5 +166,52 @@ const lite = require("lite-manager")
 ```
 * note is still in development
 * removed by now
+
+# options
+# getTypes
+* getTypes will define how you want to get the values
+* example 1
+ ```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db",{ getType: "promisse" } )
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.text()
+   },
+ });
+ table.getAll().then(pr => console.log(pr))
+```
+* you will use .then in the promise
+* example 2
+ ```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db",{ getType: "value" } )
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.text()
+   },
+ });
+ var values = table.getAll()
+ console.log(values)
+```
+* you will use a function in value
+* example 3
+ ```
+ const lite = require("lite-manager")
+ const sql = new lite.lite("./tmp.db",{ getType: "callback" } )
+ const liteTypes = lite.types
+ const table = sql.connect("tname", {
+   file: {
+     type: liteTypes.text()
+   },
+ });
+ table.getAll(data => {
+   console.log(data)
+ })
+```
+* you will use callback in this
+
 
 # bye bye!
