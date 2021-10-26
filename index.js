@@ -2,6 +2,7 @@ const _ = require("lodash");
 const fs = require("fs-extra");
 const shell = require('shelljs')
 const Query = require('./build/sqlite-query-generator')
+const { spawnSync } = require('child_process')
 
 //check if sqlite3 shell is installed
 if (!shell.which("sqlite3")) {
@@ -15,7 +16,7 @@ if (!shell.which("sqlite3")) {
 class lite {
   constructor(dir, opts) {
     try {
-
+      this.dir = dir
       //options
       if (opts && typeof opts == 'object') {
         this.opts = opts
@@ -52,24 +53,60 @@ class lite {
         getAll: (cb) => {
           if (this.opts.getType == "promisse") {
             return new Promise((resolve, reject) => {
-              resolve(this.all.run("select", `SELECT * FROM ${name}`))
+              let val = this.all.run("select", `SELECT * FROM ${name}`)
+              const info = {
+                rows: val,
+                size: val.length,
+                schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]
+              }
+              resolve(info)
             });
           } else if (this.opts.getType == "value") {
-            return this.all.run("select", `SELECT * FROM ${name}`)
+            let val = this.all.run("select", `SELECT * FROM ${name}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]
+            }
+            return info
           } else if (this.opts.getType == "callback") {
-            cb(this.all.run("select", `SELECT * FROM ${name}`))
+            let val = this.all.run("select", `SELECT * FROM ${name}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0] 
+            }
+            cb(info)
           }
         },
         getById: (value, cb) => {
           if (value) {} else { throw new Error("please inform the id") }
           if (this.opts.getType == "promisse") {
             return new Promise((resolve, reject) => {
-              resolve(this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`))
+              let val = this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`)
+              const info = {
+                rows: val,
+                size: val.length,
+                schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]
+              }
+              resolve(info)
             });
           } else if (this.opts.getType == "value") {
-            return this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`)
+            let val = this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]    
+            }
+            return info
           } else if (this.opts.getType == "callback") {
-            cb(this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`))
+            let val = this.all.run("select", `SELECT * FROM ${name} WHERE id = ${value}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]             
+            }
+            cb(info)
           }
         },
         getOne: (where, cb) => {
@@ -77,16 +114,34 @@ class lite {
           if (this.opts.getType == "promisse") {
             return new Promise((resolve, reject) => {
               let keys = _.keys(where);
-              resolve(this.all.run(
+              let val = this.all.run(
                 "select", `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
-              ))
+              )
+              const info = {
+                rows: val,
+                size: val.length,
+                schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]    
+              }
+              resolve(info)
             });
           } else if (this.opts.getType == "value") {
             let keys = _.keys(where);
-            return this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`)
+            let val = this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]        
+            }
+            return info
           } else if (this.opts.getType == "callback") {
             let keys = _.keys(where);
-            cb(this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`))
+            let val = this.all.run("select", `SELECT * FROM ${name} WHERE ${keys[0]} = ${where[keys[0]]}`)
+            const info = {
+              rows: val,
+              size: val.length,
+              schema: spawnSync('sqlite3',[this.dir,`.schema ${name}`,".exit"]).stdout.toString().split("\n")[0]              
+            }
+            cb(info)
           }
         },
         create: (columms) => {
@@ -100,7 +155,7 @@ class lite {
           this.all.run("create", `INSERT INTO ${name}(${into}) VALUES(${values})`);
         },
         update: (columms, where) => {
-          if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty?  :") }
+          if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty!") }
           let keys = _.keys(columms);
           let whereK = _.keys(where);
           for (let i = 0; i < keys.length; i++) {
@@ -115,7 +170,7 @@ class lite {
           if (where) {} else { throw new Error("please inform where you will delete the value") }
           let finalD = _.keys(where);
           this.all.run(
-            "delete", `DELETE FROM ${name} WHERE ${finalD[0]} = ${where[finalD[0]]}`
+            "delete", `DELETE FROM ${name} WHERE "${finalD[0]}" = "${where[finalD[0]]}"`
           );
         },
       };
@@ -173,5 +228,6 @@ tabela.delete({id: 2})
 module.exports = {
   lite: lite,
   types: require("./lib/types"),
+  sync: require("./src/lite-manager-sync")
   //run: require("./lib/run")
 }

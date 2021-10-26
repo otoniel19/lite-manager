@@ -1,6 +1,6 @@
 {
   "name": "lite-manager",
-  "version": "1.1.1",
+  "version": "1.1.5",
   "main": "index.js",
   "description": "lite-manager sqlite database manager",
   "scripts": {

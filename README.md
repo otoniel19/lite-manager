@@ -213,5 +213,22 @@ const lite = require("lite-manager")
 ```
 * you will use callback in this
 
+# the asynchronous mode
+* asynchronous mode works in a way that You can use multiple functions at the same time note that get used callbacks
+* example
+```
+ const lite = require("lite-manager")
+ const sql = lite.sync("./tmp.db","table_name")
+ 
+ sql.create({name:"Hello"})
+    .update({name:"Hello World!"},{name:"Hello"})
+    .delete({name:"Hello World!"})
+    .getAll(cb => {
+      console.log(cb) // { rows: [{name: "Test" }] , size: 1 }
+    })
+ 
+
+```
+* still in development
 
 # bye bye!

@@ -1,3 +1,6 @@
+# v1.1.2 2021-10-25
+* new value returns
+
 # v1.1.1 2021-10-25
 * added options
 
