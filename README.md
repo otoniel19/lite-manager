@@ -164,8 +164,6 @@ const lite = require("lite-manager")
  const Run = new liteRun(":memory:")
  Run.run(".show")
 ```
-* note is still in development
-* removed by now
 
 # options
 # getTypes

@@ -228,6 +228,7 @@ tabela.delete({id: 2})
 module.exports = {
   lite: lite,
   types: require("./lib/types"),
-  sync: require("./src/lite-manager-sync")
+  sync: require("./src/lite-manager-sync"),
+  run: require("./lib/run")
   //run: require("./lib/run")
 }

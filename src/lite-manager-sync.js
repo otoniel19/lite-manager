@@ -19,14 +19,8 @@ const liteSync = {
     exports.dir = dir
     exports.name = table
     exports.all = new Query(dir)
-    return {
-      getAll: this.getAll,
-      getOne: this.getOne,
-      getById: this.getById,
-      create: this.create,
-      update: this.update,
-      delete: this.delete
-    }
+    
+    return liteSync
   },
   getAll: function(cb) {
     let q = `select * from ${require(path.resolve("src/lite-manager-sync.js")).name}`
@@ -36,14 +30,7 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    return liteSync
   },
   getById: function(value, cb) {
     if (value) {} else { throw new Error("please inform the id") }
@@ -54,14 +41,7 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    return liteSync
   },
   getOne: function(where, cb) {
     if (where) {} else { throw new Error("please inform where you want to get the value") }
@@ -72,14 +52,7 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    return liteSync
   },
   create: function(columms) {
     if (columms) {} else { throw new Error("columms cannot be null") }
@@ -89,15 +62,8 @@ const liteSync = {
     for (let i = 0; i < args.length; i++) {
       values.push(`"${columms[args[i]]}"`);
     }
-    require(path.resolve("src/lite-manager-sync.js")).all.run("create", `INSERT INTO ${require(path.resolve("src/lite-manager-sync.js")).name}(${into}) VALUES(${values})`);
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    require(path.resolve("src/lite-manager-sync.js")).all.run("create", `INSERT INTO ${require(path.resolve("src/lite-manager-sync.js")).name}(${into}) VALUES(${values})`)
+    return liteSync
   },
   update: function(columms, where) {
     if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty!") }
@@ -110,29 +76,15 @@ const liteSync = {
             }" = "${where[whereK[0]]}"`
       );
     }
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    return liteSync
   },
   delete: function(where) {
     if (where) {} else { throw new Error("please inform where you will delete the value") }
     let finalD = _.keys(where);
     require(path.resolve("src/lite-manager-sync.js")).all.run(
-      "delete", `DELETE FROM ${require(path.resolve("src/lite-manager-sync.js")).name} WHERE "${finalD[0]}" = "${where[finalD[0]]}"`
+      "delete", `DELETE FROM ${require(path.resolve("src/lite-manager-sync.js")).name} WHERE ${finalD[0]} = "${where[finalD[0]]}"`
     );
-    return {
-      getById: this.getById,
-      getOne: this.getOne,
-      getAll: this.getAll,
-      create: this.create,
-      delete: this.delete,
-      update: this.update
-    }
+    return liteSync
   }
 }
 //const sync = liteSync.sync(path.resolve("src/test.db"), "logs")

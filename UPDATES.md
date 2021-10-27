@@ -1,3 +1,12 @@
+# v1.1.7 2021-10-27
+* new run mode
+
+# v1.1.6 2021-10-26
+* new sync mode
+
+# v1.1.5 2021-10-25
+* new getTypes opts
+
 # v1.1.2 2021-10-25
 * new value returns
 
