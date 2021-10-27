@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
 [![npm downloads](https://img.shields.io/npm/dm/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
 [![npm downloads](https://img.shields.io/npm/dw/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
+[![install size](https://packagephobia.com/badge?p=lite-manager)](https://packagephobia.com/result?p=lite-manager)
 
 # Now you no longer need to inform the model because the self model program now!
 # create a table 
@@ -111,7 +112,7 @@ const lite = require("lite-manager")
 ```
 * note you can add anything in base64
 
-# table s
+# tables value models
 
 # text
 ```
@@ -164,6 +165,7 @@ const lite = require("lite-manager")
  const Run = new liteRun(":memory:")
  Run.run(".show")
 ```
+* under development
 
 # options
 # getTypes

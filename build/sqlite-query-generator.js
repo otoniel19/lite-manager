@@ -8,17 +8,20 @@ class Query {
   run(type, args) {
     if (type == "table") {
       const str = spawnSync("sqlite3", [this.path, `${args};`, ".exit"])
-      const std = str.stderr.toString() != '' ? str.stderr.toString() : str.stdout.toString()
-      console.log(std);
+      if(str.stderr.toString() != '') {
+        console.log(str.stderr.toString())
+        process.exit()
+        return
+      }
     } else if (type == "create") {
       const str = spawnSync("sqlite3", [this.path, `${args};`, ".exit"])
-      const std = str.stderr.toString() != '' ? str.stderr.toString() : str.stdout.toString()
-      console.log(std);
+      //const std = str.stderr.toString() != '' ? str.stderr.toString() : str.stdout.toString()
     } else if (type == "select") {
       const str = spawnSync("sqlite3", [this.path, `.mode json`, `${args};`, ".exit"])
       //const std = str.stderr.toString() != '' ? str.stderr.toString() : str.stdout.toString()
       if (str.stderr.toString() != '') {
         console.log(str.stderr.toString());
+        process.exit()
         return
       } else {
         const res = JSON.parse(str.stdout.toString())
@@ -28,12 +31,14 @@ class Query {
       const str = spawnSync("sqlite3", [this.path, `${args};`, ".exit"])
       if (str.stderr.toString() != '') {
         console.log(str.stderr.toString());
+        process.exit()
         return
       }
     } else if (type == "delete") {
       const str = spawnSync("sqlite3", [this.path, `${args};`, ".exit"])
       if (str.stderr.toString() != '') {
         console.log(str.stderr.toString());
+        process.exit()
         return
       }
     }
