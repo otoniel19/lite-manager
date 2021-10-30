@@ -1,3 +1,9 @@
+# v1.1.9 2021-10-30
+* fix bugs
+
+# v1.1.8 2021-10-27
+* fix sync mode
+
 # v1.1.7 2021-10-27
 * new run mode
 

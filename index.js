@@ -115,7 +115,7 @@ class lite {
             return new Promise((resolve, reject) => {
               let keys = _.keys(where);
               let val = this.all.run(
-                "select", `SELECT * FROM ${name} WHERE "${keys[0]}" = "${where[keys[0]]}"`,
+                "select", `SELECT * FROM ${name} WHERE ${keys[0]} = "${where[keys[0]]}"`,
               )
               const info = {
                 rows: val,
