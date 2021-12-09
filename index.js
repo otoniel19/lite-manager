@@ -9,7 +9,11 @@ if (!shell.which("sqlite3")) {
   console.log("sqlite3 is necessary for the program to work.")
   console.log("installing sqlite3...");
   shell.exec("apt install sqlite -y")
-  console.log("sqlite3 installed");
+  
+  if(shell.which('sqlite3')) console.log("sqlite3 installed");
+  else console.log("failed to install sqlite3")
+  
+  //console.log("sqlite3 installed");
   shell.exit()
 }
 

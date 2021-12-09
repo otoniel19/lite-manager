@@ -22,8 +22,15 @@ const liteSync = {
     global.all = new Query(dir)
     global.dir = dir
     global.name = table
-    
-    return liteSync
+
+    return {
+      getAll: this.getAll,
+      getOne: this.getOne,
+      getById: this.getById,
+      create: this.create,
+      delete: this.delete,
+      update: this.update
+    }
   },
   getAll: function(cb) {
     let q = `select * from ${global.name}`
@@ -33,7 +40,14 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return liteSync
+    return {
+      getAll: this.getAll,
+      getOne: this.getOne,
+      getById: this.getById,
+      create: this.create,
+      delete: this.delete,
+      update: this.update
+    }
   },
   getById: function(value, cb) {
     if (value) {} else { throw new Error("please inform the id") }
@@ -44,7 +58,7 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return liteSync
+    return { getAll: this.getAll, getOne: this.getOne, getById: this.getById, create: this.create, delete: this.delete, update: this.update }
   },
   getOne: function(where, cb) {
     if (where) {} else { throw new Error("please inform where you want to get the value") }
@@ -55,7 +69,7 @@ const liteSync = {
       size: val.length
     }
     cb(info)
-    return liteSync
+    return { getAll: this.getAll, getOne: this.getOne, getById: this.getById, create: this.create, delete: this.delete, update: this.update }
   },
   create: function(columms) {
     if (columms) {} else { throw new Error("columms cannot be null") }
@@ -66,7 +80,7 @@ const liteSync = {
       values.push(`"${columms[args[i]]}"`);
     }
     global.all.run("create", `INSERT INTO ${global.name}(${into}) VALUES(${values})`)
-    return liteSync
+    return { getAll: this.getAll, getOne: this.getOne, getById: this.getById, create: this.create, delete: this.delete, update: this.update }
   },
   update: function(columms, where) {
     if (columms && where) {} else { throw new Error("columms and where you are going to update the table cannot be empty!") }
@@ -79,7 +93,7 @@ const liteSync = {
             }" = "${where[whereK[0]]}"`
       );
     }
-    return liteSync
+    return { getAll: this.getAll, getOne: this.getOne, getById: this.getById, create: this.create, delete: this.delete, update: this.update }
   },
   delete: function(where) {
     if (where) {} else { throw new Error("please inform where you will delete the value") }
@@ -87,7 +101,7 @@ const liteSync = {
     global.all.run(
       "delete", `DELETE FROM ${global.name} WHERE ${finalD[0]} = "${where[finalD[0]]}"`
     );
-    return liteSync
+    return { getAll: this.getAll, getOne: this.getOne, getById: this.getById, create: this.create, delete: this.delete, update: this.update }
   }
 }
 //const sync = liteSync.sync(path.resolve("src/test.db"), "logs")

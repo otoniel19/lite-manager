@@ -1,5 +1,14 @@
 const { spawnSync } = require("child_process")
 const { resolve } = require("path")
+const shell = require('shelljs')
+
+if (!shell.which("sqlite3")) {
+  console.log("sqlite3 is necessary for the program to work.")
+  console.log("installing sqlite3...");
+  shell.exec("apt install sqlite -y")
+  console.log("sqlite3 installed");
+  shell.exit()
+}
 
 class Query {
   constructor(path) {
