@@ -1,4 +1,4 @@
-# lite-manager sqlite database manager Made only by Otoniel19
+# lite-manager sqlite database manager
 
 [![npm version](https://img.shields.io/npm/v/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
 [![npm downloads](https://img.shields.io/npm/dm/lite-manager.svg?style=flat-square)](https://www.npmjs.com/package/lite-manager)
